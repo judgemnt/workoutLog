@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= workout.session %>
+    </title>
+</head>
+
+<body>
+    <h1>
+        <%= workout.session %>
+    </h1>
+    <table>
+        <thead>
+            <tr>
+                <td>Exercises</td>
+                <td>Sets</td>
+                <td>Reps</td>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let e of workout.exercises) { %>
+                <tr>
+                    <td>
+                        <%= e.exercise %>
+                    </td>
+                    <td>
+                        <%= e.reps %>
+                    </td>
+                    <td>
+                        <%= e.sets %>
+                    </td>
+                </tr>
+                <% } %>
+        </tbody>
+    </table>
+</body>
+
+</html>
