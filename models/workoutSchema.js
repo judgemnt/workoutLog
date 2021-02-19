@@ -23,7 +23,11 @@ const WorkoutSchema = new Schema({
         required: true
     },
     exercises: [ExerciseSchema],
-    comments: String
+    comments: String,
+    description: {
+        type: String,
+        required: true
+    }
 })
 
-module.exports = mongoose.model("Workout", WorkoutSchema)
+module.exports = mongoose.model("Workout", WorkoutSchema);

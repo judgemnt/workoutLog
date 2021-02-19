@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-const Workout = require("../models/workoutSchema")
-const { exercises, sets, reps } = require("./exercises.js")
+const Workout = require("../models/workoutSchema");
+const Program = require("../models/programSchema");
+const { exercises, sets, reps } = require("./exercises.js");
 
 mongoose.connect('mongodb://localhost:27017/workoutLog', {
     useNewUrlParser: true,
@@ -19,7 +20,8 @@ const sample = array => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
     await Workout.deleteMany({});
-    for (let i = 0; i < 7; i++) {
+    await Program.deleteMany({});
+    for (let i = 0; i < 6; i++) {
         const workout = new Workout({
             session: `Day ${i}`,
             exercises: [{
@@ -62,11 +64,18 @@ const seedDB = async () => {
                 exercise: `${sample(exercises)}`,
                 sets: `${sample(sets)}`,
                 reps: `${sample(reps)}`
-            }]
-        })
+            }],
+            description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.Omnis assumenda adipisci animi soluta sunt eum non illum quidem dolores, minus facilis natus dolorem reprehenderit vero neque! Nostrum, rerum! Neque, iste!"
+        });
         await workout.save();
-    }
-}
+        const program = new Program({
+            title: `Strong boi ${i}`,
+            workouts: [workout],
+            description: "this works"
+        });
+        await program.save();
+    };
+};
 
 
 seedDB().then(() => {
