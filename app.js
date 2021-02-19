@@ -3,6 +3,7 @@ const app = express();
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const path = require("path");
+const engine = require("ejs-mate");
 const Workout = require("./models/workoutSchema");
 const Program = require("./models/programSchema");
 
@@ -15,6 +16,7 @@ mongoose.connect('mongodb://localhost:27017/workoutLog', { useNewUrlParser: true
         console.log(e);
     });
 
+app.engine("ejs", engine);
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"));
 
