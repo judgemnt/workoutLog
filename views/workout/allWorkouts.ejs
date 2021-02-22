@@ -1,11 +1,8 @@
 <% layout("layouts/boilerplate")%>
-    <% for (let w of workouts) {%>
-        <h2>
-            <%=w.session%>
-        </h2>
-        <p>
-            <%= w.description %>
-                <br>
-                <a href="workouts/<%= w._id%> ">Show Workout</a>
-        </p>
+    <%for (let w=0; w < allWorkouts.workouts.length; w ++) {%>
+        <div>
+            <a href="/programs/<%=allWorkouts._id%>/workouts/<%=allWorkouts.workouts[w]._id%>">
+                <%= allWorkouts.workouts[w].session%>
+            </a>
+        </div>
         <% } %>

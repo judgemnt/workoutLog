@@ -2,6 +2,9 @@
     <h1>All Programs</h1>
     <% for (let p of programs) {%>
         <div>
-            <%= p.title %>
+            <a href="/programs/<%=p._id%>/workouts">
+                <%= p.title %>
+            </a>
+
         </div>
         <% } %>

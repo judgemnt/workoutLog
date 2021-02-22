@@ -29,12 +29,13 @@ app.get("/programs", async (req, res) => {
     res.render("workout/index", { programs });
 });
 
-app.get("/programs/workouts", async (req, res) => {
-    const workouts = await Workout.find({});
-    res.render("workout/allWorkouts", { workouts });
+app.get("/programs/:id/workouts", async (req, res) => {
+    const { id } = req.params;
+    const allWorkouts = await Program.findById(id).populate("workouts");
+    res.render("workout/allWorkouts", { allWorkouts });
 });
 
-app.get("/programs/workouts/:id", async (req, res) => {
+app.get("/programs/:id/workouts/:id", async (req, res) => {
     const { id } = req.params;
     const workout = await Workout.findById(id);
     res.render("workout/details", { workout });
