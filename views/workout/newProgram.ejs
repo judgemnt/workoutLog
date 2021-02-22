@@ -1,0 +1,39 @@
+<% layout("layouts/boilerplate")%>
+
+    <form action="/programs" method="POST">
+        <section>
+            <label for="program[title]">Program Title</label>
+            <input type="text" name="program[title]" id="program[title]">
+            <br>
+            <label for="program[description]">Program Summary</label>
+            <textarea name="program[description]" id="program[description]" cols="40" rows="3"
+                placeholder="What are the goals of this program?"></textarea>
+        </section>
+        <section>
+            <label for="workout[session]">Workout title:</label>
+            <input type="text" name="workout[session]" id="workout[session]">
+            <br>
+            <label for="workout[description]">Workout Summary</label>
+            <textarea name="workout[description]" id="workout[description]" cols="40" rows="3"
+                placeholder="What are the goals of this program?"></textarea>
+        </section>
+        <section>
+            <label for="exercise[exercise]">Exercise Name:</label>
+            <input type="text" name="exercise[exercise]" id="exercise[exercise]">
+            <label for="exercise[sets]">Sets:</label>
+            <input type="number" name="exercise[sets]" id="exercise[sets]">
+            <label for="exercise[reps]">Reps:</label>
+            <input type="number" name="exercise[reps]" id="exercise[reps]">
+            <label for="exercise[exercise]">Exercise Name:</label>
+            <input type="text" name="exercise[exercise]" id="exercise[exercise]">
+            <label for="exercise[sets]">Sets:</label>
+            <input type="number" name="exercise[sets]" id="exercise[sets]">
+            <label for="exercise[reps]">Reps:</label>
+            <input type="number" name="exercise[reps]" id="exercise[reps]">
+        </section>
+        <button>Submit</button>
+    </form>
+
+    <!-- 
+workouts [  exercises: {exercise, sets, reps}, comments, description]
+ -->
