@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost:27017/workoutLog', { useNewUrlParser: true
     });
 
 app.engine("ejs", engine);
-app.set("view engine", "ejs")
+app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));
@@ -27,33 +27,35 @@ app.get("/", (req, res) => {
 });
 
 app.get("/programs/new", (req, res) => {
-    res.render("workout/newProgram")
-})
+    res.render("workout/newProgram");
+});
 
 app.post("/programs", async (req, res) => {
-    const workout = await new Workout({
-        session: req.body.workout.session,
-        exercises: [{
-            exercise: req.body.exercise.exercise,
-            sets: req.body.exercise.sets,
-            reps: req.body.exercise.reps
-        }
-        ],
-        description: req.body.workout.description
-    })
-    await workout.save();
     const program = await new Program({
         title: req.body.program.title,
-        workouts: [workout],
         description: req.body.program.description
     })
-    await program.save()
-    res.redirect("/programs")
+    await program.save();
+    const id = program._id;
+    res.redirect(`/programs/${id}/workouts`);
 })
 
 app.get("/programs", async (req, res) => {
-    const programs = await Program.find({}).populate("workouts")
+    const programs = await Program.find({}).populate("workouts");
     res.render("workout/index", { programs });
+});
+
+app.post("/programs/:id", async (req, res) => {
+    const { id } = req.params;
+    const program = await Program.findById(id);
+    // await program.updateOne({ $push: { workouts: { session: req.body.workouts.session, description: req.body.workouts.description } } })
+    const workout = new Workout({
+        session: req.body.workouts.session,
+        description: req.body.workouts.description,
+    });
+    await workout.save();
+    await program.updateOne({ $push: { workouts: workout } });
+    res.redirect(`/programs/${id}/workouts`);
 });
 
 app.get("/programs/:id/workouts", async (req, res) => {

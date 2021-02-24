@@ -6,3 +6,17 @@
             </a>
         </div>
         <% } %>
+            <div>
+                <h2>Add Workouts</h2>
+                <form action="/programs/<%=allWorkouts._id%>" method="POST">
+                    <div>
+                        <label for="workouts[session]">Session Title</label>
+                        <input type="text" name="workouts[session]" id="workouts[session]">
+                    </div>
+                    <div>
+                        <label for="workouts[description]">Description</label>
+                        <textarea name="workouts[description]" id="workouts[description]" cols="30" rows="2"></textarea>
+                    </div>
+                    <button>Submit</button>
+                </form>
+            </div>
