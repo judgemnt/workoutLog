@@ -1,8 +1,5 @@
 <% layout("layouts/boilerplate")%>
     <h1>
-        <%= workout %>
-    </h1>
-    <h1>
         <%= workout.session %>
     </h1>
     <table>
@@ -20,10 +17,10 @@
                         <%= e.exercise %>
                     </td>
                     <td>
-                        <%= e.reps %>
+                        <%= e.sets %>
                     </td>
                     <td>
-                        <%= e.sets %>
+                        <%= e.reps %>
                     </td>
                 </tr>
                 <% } %>

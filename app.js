@@ -48,10 +48,10 @@ app.get("/programs", async (req, res) => {
 app.post("/programs/:id", async (req, res) => {
     const { id } = req.params;
     const program = await Program.findById(id);
-    // await program.updateOne({ $push: { workouts: { session: req.body.workouts.session, description: req.body.workouts.description } } })
     const workout = new Workout({
         session: req.body.workouts.session,
         description: req.body.workouts.description,
+        program: id
     });
     await workout.save();
     await program.updateOne({ $push: { workouts: workout } });
@@ -68,6 +68,23 @@ app.get("/programs/:id/workouts/:id", async (req, res) => {
     const { id } = req.params;
     const workout = await Workout.findById(id);
     res.render("workout/details", { workout });
+});
+
+app.post("/workouts/:id", async (req, res) => {
+    const { id } = req.params;
+    const workout = await Workout.findById(id);
+    const programId = workout.program;
+    await workout.updateOne({
+        $push: {
+            exercises:
+            {
+                exercise: req.body.exercises.exercise,
+                sets: req.body.exercises.sets,
+                reps: req.body.exercises.reps
+            }
+        }
+    });
+    res.redirect(`/programs/${programId}/workouts/${id}`)
 });
 
 app.listen(3000, () => {

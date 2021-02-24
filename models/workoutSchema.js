@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Program = require("./programSchema")
 const Schema = mongoose.Schema;
 
 const ExerciseSchema = new Schema({
@@ -25,8 +26,11 @@ const WorkoutSchema = new Schema({
     exercises: [ExerciseSchema],
     comments: String,
     description: {
-        type: String,
-        required: true
+        type: String
+    },
+    program: {
+        type: Schema.Types.ObjectId,
+        ref: "Program"
     }
 })
 
