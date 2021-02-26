@@ -1,29 +1,17 @@
 const mongoose = require("mongoose");
-const Program = require("./programSchema")
+const Program = require("./programSchema");
+const Exercise = require("./exerciseSchema")
 const Schema = mongoose.Schema;
-
-const ExerciseSchema = new Schema({
-    exercise: {
-        type: String,
-        required: true
-    },
-    sets: {
-        type: String,
-        required: true,
-    },
-    reps: {
-        type: String,
-        required: true
-    },
-    comments: String
-})
 
 const WorkoutSchema = new Schema({
     session: {
         type: String,
         required: true
     },
-    exercises: [ExerciseSchema],
+    exercises: [{
+        type: Schema.Types.ObjectId,
+        ref: "Exercise"
+    }],
     comments: String,
     description: {
         type: String

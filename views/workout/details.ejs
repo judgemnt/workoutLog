@@ -11,22 +11,28 @@
             </tr>
         </thead>
         <tbody>
-            <% for (let e of workout.exercises) { %>
-                <tr>
-                    <td>
-                        <%= e.exercise %>
-                    </td>
-                    <td>
-                        <%= e.sets %>
-                    </td>
-                    <td>
-                        <%= e.reps %>
-                    </td>
-                </tr>
-                <% } %>
+            <form action="/workouts/<%=workout._id%>?_method=delete" method="POST">
+                <% for (let e of workout.exercises) { %>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="exercises[exercise]" id="exercises[exercise]"
+                                value="<%=e._id%>">
+                            <label for="exercises[exercise]">
+                                <%= e.exercise %>
+                            </label>
+                        </td>
+                        <td>
+                            <%= e.sets %>
+                        </td>
+                        <td>
+                            <%= e.reps %>
+                        </td>
+                    </tr>
+                    <% } %>
         </tbody>
     </table>
-
+    <button>Remove selected</button>
+    </form>
     <h2>Add Exercises</h2>
     <form action="/workouts/<%=workout._id%>" method="POST">
         <label for="exercises[exercise]">Exercise</label>
