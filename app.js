@@ -73,7 +73,19 @@ app.post("/programs/:id", async (req, res) => {
     res.redirect(`/programs/${id}/workouts`);
 });
 
-//Shows all exercises in a specific program
+//Delete workouts from a program
+app.delete("/programs/:id/workouts", async (req, res) => {
+    const workoutIds = req.body.workouts.workout;
+    const workout = await Workout.find({ _id: { $in: workoutIds } });
+    const programId = workout[0].program;
+    const program = await Program.findById(programId)
+    const deleteExercises = await Exercise.deleteMany({ workout: { $in: req.body.workouts.workout } });
+    const deleteWorkout = await Workout.deleteMany({ _id: { $in: workoutIds } });
+    const newProgram = await program.updateOne({ $pull: { workouts: { $in: workoutIds } } });
+    res.redirect(`/programs/${programId}/workouts`);
+});
+
+//Shows all exercises in a specific workout
 app.get("/programs/:id/workouts/:id", async (req, res) => {
     const { id } = req.params;
     const workout = await Workout.findById(id).populate("exercises");
@@ -93,7 +105,7 @@ app.post("/workouts/:id", async (req, res) => {
     });
     await newExercise.save();
     await workout.updateOne({ $push: { exercises: newExercise } });
-    res.redirect(`/programs/${programId}/workouts/${id}`)
+    res.redirect(`/programs/${programId}/workouts/${id}`);
 });
 
 //Delete a specific exercise in a workout
@@ -105,8 +117,8 @@ app.delete("/workouts/:id", async (req, res) => {
     const programId = workout.program;
     await workout.updateOne({ $pull: { exercises: { $in: exerciseIds } } });
     const removeExercise = await Exercise.deleteMany({ _id: { $in: exerciseIds } });
-    res.redirect(`/programs/${programId}/workouts/${workoutId}`)
-})
+    res.redirect(`/programs/${programId}/workouts/${workoutId}`);
+});
 
 app.listen(3000, () => {
     console.log("Localhost 3000");
