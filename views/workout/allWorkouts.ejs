@@ -1,4 +1,6 @@
 <% layout("layouts/boilerplate")%>
+    <div><a href="/programs">programs</a></div>
+    <h1>All Workouts</h1>
     <%for (let w=0; w < allWorkouts.workouts.length; w ++) {%>
         <div>
             <form action="/programs/<%=allWorkouts.workouts[0].program%>/workouts?_method=DELETE" method="POST">

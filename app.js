@@ -36,11 +36,6 @@ app.get("/programs", async (req, res) => {
     res.render("workout/index", { programs });
 });
 
-//Shows form to create new programs
-app.get("/programs/new", (req, res) => {
-    res.render("workout/newProgram");
-});
-
 //Create new programs
 app.post("/programs", async (req, res) => {
     const program = await new Program({
@@ -50,6 +45,22 @@ app.post("/programs", async (req, res) => {
     await program.save();
     const id = program._id;
     res.redirect(`/programs/${id}/workouts`);
+});
+
+//Delete programs
+app.delete("/programs", async (req, res) => {
+    const programId = req.body.program._id;
+    const program = await Program.findById(programId);
+    const workoutIds = program.workouts;
+    const deleteWorkouts = await Workout.deleteMany({ program: { $in: programId } });
+    const deleteExercises = await Exercise.deleteMany({ workout: { $in: workoutIds } });
+    await Program.findByIdAndDelete(programId);
+    res.redirect("/programs");
+});
+
+//Shows form to create new programs
+app.get("/programs/new", (req, res) => {
+    res.render("workout/newProgram");
 });
 
 //Shows all workouts in a specific program
@@ -79,7 +90,7 @@ app.delete("/programs/:id/workouts", async (req, res) => {
     const workout = await Workout.find({ _id: { $in: workoutIds } });
     const programId = workout[0].program;
     const program = await Program.findById(programId)
-    const deleteExercises = await Exercise.deleteMany({ workout: { $in: req.body.workouts.workout } });
+    const deleteExercises = await Exercise.deleteMany({ workout: { $in: workoutIds } });
     const deleteWorkout = await Workout.deleteMany({ _id: { $in: workoutIds } });
     const newProgram = await program.updateOne({ $pull: { workouts: { $in: workoutIds } } });
     res.redirect(`/programs/${programId}/workouts`);

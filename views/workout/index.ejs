@@ -1,10 +1,16 @@
 <% layout("layouts/boilerplate")%>
     <h1>All Programs</h1>
-    <% for (let p of programs) {%>
-        <div>
-            <a href="/programs/<%=p._id%>/workouts">
-                <%= p.title %>
-            </a>
-
-        </div>
-        <% } %>
+    <div>
+        <% for (let p of programs) {%>
+            <form action="/programs?_method=DELETE" method="POST">
+                <div>
+                    <label for="program[_id]">
+                        <a href="/programs/<%=p._id%>/workouts">
+                            <%= p.title %>
+                        </a>
+                    </label>
+                </div>
+                <button name="program[_id]" id="program[_id]" value="<%=p._id%>">Delete Program</button>
+            </form>
+            <% } %>
+    </div>
