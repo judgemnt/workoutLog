@@ -24,6 +24,29 @@ module.exports.new = async (req, res) => {
     res.redirect(`/programs/${id}/workouts/${workoutId}`);
 };
 
+//Shows form to edit exercises
+module.exports.showEdit = async (req, res) => {
+    const { workoutId } = req.params;
+    const workout = await Workout.findById(workoutId).populate("exercises");
+    res.render("workout/edit", { workout });
+};
+
+//Updates exercise schema with new info
+module.exports.edit = async (req, res) => {
+    const { id } = req.params;
+    const { workoutId } = req.params;
+    const formId = req.body.exercises.id;
+    const exerciseLength = req.body.exercises.id.length;
+    for (let e = 0; e < exerciseLength; e++) {
+        const exercise = await Exercise.findByIdAndUpdate(formId[e], {
+            exercise: req.body.exercises.exercise[e],
+            sets: req.body.exercises.sets[e],
+            reps: req.body.exercises.reps[e]
+        });
+    };
+    res.redirect(`/programs/${id}/workouts/${workoutId}`);
+};
+
 //delete an exercise from a specific workout
 module.exports.delete = async (req, res) => {
     const exerciseIds = req.body.exercises.exercise;

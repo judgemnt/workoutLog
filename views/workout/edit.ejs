@@ -1,0 +1,45 @@
+<% layout("layouts/boilerplate")%>
+    <div>
+        <a href="/programs">programs</a>/<a href="/programs/<%=workout.program%>/workouts"> workouts
+        </a>/<a href="/programs/<%=workout.program%>/workouts/<%=workout.id%>">
+            <%=workout.session%>
+        </a>
+    </div>
+    <div>
+        <form action="/programs/<%=workout.program%>/workouts/<%=workout._id%>?_method=PATCH" method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <td>Identifier</td>
+                        <td>Exercises</td>
+                        <td>Sets</td>
+                        <td>Reps</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let e of workout.exercises) { %>
+                        <tr>
+                            <td>
+                                <input class="form-control" type="text" placeholder="<%=e._id%>" name="exercises[id]"
+                                    id="exercises[id]" readonly value="<%=e._id%>">
+                            </td>
+                            <td>
+                                <label for="exercises[exercise]"></label>
+                                <input type="text" name="exercises[exercise]" id="exercises[exercise]"
+                                    value="<%=e.exercise%>">
+                            </td>
+                            <td>
+                                <label for="exercises[sets]"></label>
+                                <input type="text" name="exercises[sets]" id="exercises[sets]" value="<%=e.sets%>">
+                            </td>
+                            <td>
+                                <label for="exercises[reps]"></label>
+                                <input type="text" name="exercises[reps]" id="exercises[reps]" value="<%=e.reps%>">
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+                <button id="results">Save and Exit</button>
+        </form>
+        <a href="/programs/<%=workout.program%>/workouts/<%=workout.id%>"><button>Cancel and Return</button></a>
+    </div>
