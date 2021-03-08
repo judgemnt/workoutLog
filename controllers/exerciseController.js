@@ -28,7 +28,7 @@ module.exports.new = async (req, res) => {
 module.exports.showEdit = async (req, res) => {
     const { workoutId } = req.params;
     const workout = await Workout.findById(workoutId).populate("exercises");
-    res.render("workout/edit", { workout });
+    res.render("workout/editExercise", { workout });
 };
 
 //Updates exercise schema with new info

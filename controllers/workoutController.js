@@ -23,6 +23,28 @@ module.exports.workouts = async (req, res) => {
     res.render("workout/allWorkouts", { allWorkouts });
 };
 
+//Show workouts edit form
+module.exports.editForm = async (req, res) => {
+    const { id } = req.params;
+    const workouts = await Workout.find({ program: { $in: id } });
+    res.render("workout/editWorkout", { workouts });
+}
+
+//Update workouts
+module.exports.editWorkout = async (req, res) => {
+    console.log(req.body)
+    const { id } = req.params;
+    const workoutIds = req.body.workout.id;
+    console.log(workoutIds);
+    for (let w = 0; w < workoutIds.length; w++) {
+        const updateWorkout = await Workout.findByIdAndUpdate(workoutIds[w], {
+            session: req.body.workout.session[w],
+            description: req.body.workout.description[w]
+        });
+    };
+    res.redirect(`/programs/${id}/workouts`);
+};
+
 //Delete workouts from a program
 module.exports.delete = async (req, res) => {
     const workoutIds = req.body.workouts.workout;
