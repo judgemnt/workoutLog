@@ -9,6 +9,9 @@
                             <%= p.title %>
                         </a>
                     </label>
+                    <br>
+                    <textarea class="form-control" name="program[description]" id="program[description]" cols="60"
+                        rows="3" readonly><%=p.description%></textarea>
                 </div>
                 <button name="program[_id]" id="program[_id]" value="<%=p._id%>">Delete Program</button>
             </form>

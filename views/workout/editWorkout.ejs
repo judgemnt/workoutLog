@@ -1,6 +1,5 @@
 <% layout("layouts/boilerplate")%>
-
-    <%= workouts %>
+    <div>
         <form action="/programs/<%=workouts[0].program%>/workouts?_method=PATCH" method="POST">
             <table>
                 <thead>
@@ -34,3 +33,4 @@
                 <button>Submit</button>
             </div>
         </form>
+    </div>

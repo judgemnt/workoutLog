@@ -20,7 +20,8 @@ module.exports.new = async (req, res) => {
 module.exports.workouts = async (req, res) => {
     const { id } = req.params;
     const allWorkouts = await Program.findById(id).populate("workouts");
-    res.render("workout/allWorkouts", { allWorkouts });
+    const program = await Program.findById(id)
+    res.render("workout/allWorkouts", { allWorkouts, program });
 };
 
 //Show workouts edit form
@@ -32,14 +33,19 @@ module.exports.editForm = async (req, res) => {
 
 //Update workouts
 module.exports.editWorkout = async (req, res) => {
-    console.log(req.body)
     const { id } = req.params;
     const workoutIds = req.body.workout.id;
-    console.log(workoutIds);
-    for (let w = 0; w < workoutIds.length; w++) {
-        const updateWorkout = await Workout.findByIdAndUpdate(workoutIds[w], {
-            session: req.body.workout.session[w],
-            description: req.body.workout.description[w]
+    if (Array.isArray(workoutIds)) {
+        for (let w = 0; w < workoutIds.length; w++) {
+            const updateWorkout = await Workout.findByIdAndUpdate(workoutIds[w], {
+                session: req.body.workout.session[w],
+                description: req.body.workout.description[w]
+            });
+        };
+    } else {
+        const updateSingWorkout = await Workout.findByIdAndUpdate(workoutIds, {
+            session: req.body.workout.session,
+            description: req.body.workout.description
         });
     };
     res.redirect(`/programs/${id}/workouts`);

@@ -1,0 +1,16 @@
+<% layout("layouts/boilerplate")%>
+    <div>
+        <form action="/programs/<%=program._id%>?_method=PATCH" method="POST">
+            <div>
+                <label for="program[title]">Program Name</label>
+                <input type="text" name="program[title]" id="program[title]" value="<%=program.title%>">
+            </div>
+            <div>
+                <label for="program[description]">Description</label>
+                <textarea name="program[description]" id="program[description]" cols="70"
+                    rows="3"><%=program.description%></textarea>
+            </div>
+            <button>Submit Changes</button>
+        </form>
+        <a href="/programs/<%=program._id%>/workouts"><button>Cancel</button></a>
+    </div>

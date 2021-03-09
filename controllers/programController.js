@@ -19,6 +19,23 @@ module.exports.newProgram = async (req, res) => {
     res.redirect(`/programs/${id}/workouts`);
 };
 
+//Show edit program form
+module.exports.editForm = async (req, res) => {
+    const { id } = req.params;
+    const program = await Program.findById(id)
+    res.render("workout/editProgram", { program })
+}
+
+//Update program form
+module.exports.edit = async (req, res) => {
+    const { id } = req.params;
+    const program = await Program.findByIdAndUpdate(id, {
+        title: req.body.program.title,
+        description: req.body.program.description
+    });
+    res.redirect(`/programs/${id}/workouts`)
+};
+
 //Delete program
 module.exports.deleteProgram = async (req, res) => {
     const programId = req.body.program._id;

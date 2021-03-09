@@ -7,6 +7,10 @@ router.route("/")
     .post(program.newProgram)
     .delete(program.deleteProgram);
 
-router.get("/new", program.programForm)
+router.get("/new", program.programForm);
+
+router.get("/:id/edit", program.editForm);
+
+router.patch("/:id", program.edit)
 
 module.exports = router

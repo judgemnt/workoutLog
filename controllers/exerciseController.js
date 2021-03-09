@@ -37,11 +37,19 @@ module.exports.edit = async (req, res) => {
     const { workoutId } = req.params;
     const formId = req.body.exercises.id;
     const exerciseLength = req.body.exercises.id.length;
-    for (let e = 0; e < exerciseLength; e++) {
-        const exercise = await Exercise.findByIdAndUpdate(formId[e], {
-            exercise: req.body.exercises.exercise[e],
-            sets: req.body.exercises.sets[e],
-            reps: req.body.exercises.reps[e]
+    if (Array.isArray(formId)) {
+        for (let e = 0; e < exerciseLength; e++) {
+            const updateExercises = await Exercise.findByIdAndUpdate(formId[e], {
+                exercise: req.body.exercises.exercise[e],
+                sets: req.body.exercises.sets[e],
+                reps: req.body.exercises.reps[e]
+            });
+        };
+    } else {
+        const updateSingleExercise = await Exercise.findByIdAndUpdate(formId, {
+            exercise: req.body.exercises.exercise,
+            sets: req.body.exercises.sets,
+            reps: req.body.exercises.reps
         });
     };
     res.redirect(`/programs/${id}/workouts/${workoutId}`);
