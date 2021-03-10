@@ -36,9 +36,7 @@ module.exports.new = async (req, res) => {
 //Shows all workouts in a specific program
 module.exports.workouts = async (req, res) => {
     const { id } = req.params;
-    // const allWorkouts = await Program.findById(id).populate("workouts");
     const workouts = await Workout.find({ program: { $in: id } })
-    // console.log(allWorkouts)
     const program = await Program.findById(id)
     const sortedWorkouts = workouts.sort(sorter("sequence"));
     res.render("workout/allWorkouts", { program, sortedWorkouts });
@@ -49,7 +47,6 @@ module.exports.editForm = async (req, res) => {
     const { id } = req.params;
     const workouts = await Workout.find({ program: { $in: id } });
     const sortedWorkouts = workouts.sort(sorter("sequence"))
-    console.log(sortedWorkouts)
     res.render("workout/editWorkout", { workouts, sortedWorkouts });
 }
 
