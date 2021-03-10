@@ -19,6 +19,11 @@ const ExerciseSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Workout"
     },
+    sequence: {
+        type: Number,
+        min: 1,
+        required: true
+    },
     comments: String
 });
 
