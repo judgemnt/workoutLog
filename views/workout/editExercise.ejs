@@ -11,17 +11,23 @@
                 <thead>
                     <tr>
                         <td>Identifier</td>
+                        <td>Order</td>
                         <td>Exercises</td>
                         <td>Sets</td>
                         <td>Reps</td>
                     </tr>
                 </thead>
                 <tbody>
-                    <% for (let e of workout.exercises) { %>
+                    <% for (let e of sortedEx) { %>
                         <tr>
                             <td>
                                 <input class="form-control" type="text" placeholder="<%=e._id%>" name="exercises[id]"
                                     id="exercises[id]" readonly value="<%=e._id%>">
+                            </td>
+                            <td>
+                                <label for="exercises[sequence]"></label>
+                                <input type="number" id="exercises[sequence]" name="exercises[sequence]"
+                                    value="<%=e.sequence%>">
                             </td>
                             <td>
                                 <label for="exercises[exercise]"></label>

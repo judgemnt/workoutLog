@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 <form action="/programs/<%=workout.program%>/workouts/<%=workout._id%>?_method=DELETE" method="POST">
-                    <% for (let e of workout.exercises) { %>
+                    <% for (let e of sortedEx) { %>
                         <tr>
                             <td>
                                 <input type="checkbox" name="exercises[exercise]" id="exercises[<%=e._id%>]"

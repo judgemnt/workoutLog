@@ -8,7 +8,7 @@ const programRoutes = require("./routes/programRoutes");
 const workoutRoutes = require("./routes/workoutRoutes");
 const exerciseRoutes = require("./routes/exerciseRoutes");
 
-mongoose.connect('mongodb://localhost:27017/workoutLog', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/workoutLog', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
     .then(() => {
         console.log("Connected");
     })
@@ -23,6 +23,7 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/programs", programRoutes);
 app.use("/programs/:id", workoutRoutes);
