@@ -2,7 +2,7 @@ const Workout = require("../models/workoutSchema");
 const Exercise = require("../models/exerciseSchema");
 
 
-//function to sort Exercises
+//function to sort
 const sorter = (property, condition) => {
 
     const key = condition ?
@@ -15,8 +15,8 @@ const sorter = (property, condition) => {
 
     return function (a, b) {
         return a = key(a), b = key(b), ((a > b) - (b > a));
-    }
-}
+    };
+};
 
 //show all exercises for a specific workout
 module.exports.show = async (req, res) => {

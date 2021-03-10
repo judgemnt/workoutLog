@@ -19,6 +19,11 @@ const WorkoutSchema = new Schema({
     program: {
         type: Schema.Types.ObjectId,
         ref: "Program"
+    },
+    sequence: {
+        type: Number,
+        required: true,
+        min: 1
     }
 })
 
