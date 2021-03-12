@@ -1,0 +1,16 @@
+Track exercise weights
+
+Wilks Calculator
+
+Bodyfat Percentage calculator
+
+Users
+
+Personal Records page
+
+Rearrange:
+    Can't make schema validate it's unique because there will be multiple exercises the need to be first, will need middleware to make sure they're not assigned to a dupe.
+
+
+
+

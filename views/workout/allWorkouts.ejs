@@ -22,7 +22,7 @@
                 <form action="/programs/<%=sortedWorkouts[0].program%>/workouts?_method=DELETE" method="POST">
                     <div>
                         <label for="workouts[workout]">
-                            <a href="/programs/<%=sortedWorkouts._id%>/workouts/<%=sortedWorkouts[w]._id%>">
+                            <a href="/programs/<%=program._id%>/workouts/<%=sortedWorkouts[w]._id%>">
                                 <%= sortedWorkouts[w].session%>
                             </a>
                         </label>

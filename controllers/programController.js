@@ -4,7 +4,7 @@ const Exercise = require("../models/exerciseSchema");
 
 //Show all programs
 module.exports.programs = async (req, res) => {
-    const programs = await Program.find({}).populate("workouts");
+    const programs = await Program.find({});
     res.render("workout/index", { programs });
 };
 
