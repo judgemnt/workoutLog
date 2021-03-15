@@ -1,0 +1,24 @@
+<% layout("/layouts/boilerplate")%>
+    <h1>Calculate Wilks</h1>
+    <form action="/personal/wilks" method="POST">
+        <label for="wilks[gender]">Gender</label>
+        <select name="wilks[gender]" id="wilks[gender]">
+            <option value="male">male</option>
+            <option value="female">female</option>
+        </select>
+        <label for="wilks[bodyweight]">Body Weight(in kg)</label>
+        <input type="number" step="any" name="wilks[bodyweight]" id="wilks[bodyweight]">
+        <label for="wilks[total]">Powerlifting Total (in kg)</label>
+        <input type="number" step="any" name="wilks[total]" id="wilks[total]">
+        <button id="calculate">submit</button>
+    </form>
+    <% if (wilksScore) {%>
+        <h2>
+            <%= wilksScore %>
+        </h2>
+        <% } else {%>
+            <% } %>
+                <h2>What is wilks?</h2>
+                <p>The Wilks coefficient or Wilks formula is a coefficient that can be used to measure the strength of a
+                    powerlifter
+                    against other powerlifters despite the different weights of the lifters. - Wikipedia</p>

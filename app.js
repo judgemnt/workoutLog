@@ -7,6 +7,7 @@ const methodOverride = require("method-override");
 const programRoutes = require("./routes/programRoutes");
 const workoutRoutes = require("./routes/workoutRoutes");
 const exerciseRoutes = require("./routes/exerciseRoutes");
+const personalRoutes = require("./routes/personalRoutes");
 
 mongoose.connect('mongodb://localhost:27017/workoutLog', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
     .then(() => {
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/programs", programRoutes);
 app.use("/programs/:id", workoutRoutes);
 app.use("/programs/:id/workouts/:workoutId", exerciseRoutes);
+app.use("/personal", personalRoutes)
 
 //Shows landing page
 app.get("/", (req, res) => {

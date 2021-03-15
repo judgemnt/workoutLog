@@ -1,10 +1,6 @@
-Track exercise weights
-
-Wilks Calculator
-
 Bodyfat Percentage calculator
 
-Users
+Track exercise weights
 
 Personal Records page
 
@@ -13,4 +9,9 @@ Rearrange:
 
 
 
-
+Multiuser support:
+-------------
+Users
+- Tracks personal Records
+- Tracks individual Wilks
+- Tracks Bodyfat
