@@ -12,9 +12,9 @@
         <input type="number" step="any" name="wilks[total]" id="wilks[total]">
         <button id="calculate">submit</button>
     </form>
-    <% if (wilksScore) {%>
+    <% if (user) {%>
         <h2>
-            <%= wilksScore %>
+            <%= user[0].wilks%>
         </h2>
         <% } else {%>
             <% } %>

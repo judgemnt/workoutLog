@@ -6,4 +6,8 @@ router.route("/wilks")
     .get(personal.wilks)
     .post(personal.calculateWilks)
 
+router.route("/bfCalc")
+    .get(personal.bodyFat)
+    .post(personal.calculateBF)
+
 module.exports = router

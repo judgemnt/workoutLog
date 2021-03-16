@@ -1,0 +1,61 @@
+<% layout("layouts/boilerplate")%>
+
+    <h1>Body Fat Percentage Calculator</h1>
+    <p>Based on the US Navy formula. Results are believed to be accurate, however this should not be a substitute for
+        advice from a medical professional</p>
+
+    <form action="/personal/bfCalc" method="POST">
+        <label for="bfCalc[gender]">Gender</label>
+        <select name="bfCalc[gender]" id="bfCalc[gender]">
+            <option value="male">male</option>
+            <option value="female">female</option>
+        </select>
+        <br>
+        <label for="bfCalc[weight]">Body Weight(in kg)</label>
+        <input type="number" step="any" name="bfCalc[weight]" id="bfCalc[weight]">
+        <br>
+        <label for="bfCalc[height]">Height(in cm)</label>
+        <input type="number" step="any" name="bfCalc[height]" id="bfCalc[height]">
+        <br>
+        <label for="bfCalc[waist]">Waist(in cm)</label>
+        <input type="number" step="any" name="bfCalc[waist]" id="bfCalc[waist]">
+        <br>
+        <div id="female" hidden>
+            <label for="bfCalc[hip]">Hip(in cm)</label>
+            <input type="number" step="any" name="bfCalc[hip]" id="bfCalc[hip]">
+            <br>
+        </div>
+        <label for="bfCalc[neck]">Neck(in cm)</label>
+        <input type="number" step="any" name="bfCalc[neck]" id="bfCalc[neck]">
+        <div>
+            <button>Calculate</button>
+        </div>
+    </form>
+    <% if (user[0].BodyFatPercentage){ %>
+        <div>
+            <table>
+                <tr>
+                    <td>Body Fat %</td>
+                    <td>
+                        <%=user[0].BodyFatPercentage%>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fat Mass</td>
+                    <td>
+                        <%=user[0].FatMass%>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fat Free Mass</td>
+                    <td>
+                        <%=user[0].LeanMass%>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <% } else { %>
+
+            <% } %>
+
+                <script src="/javascript/bodyfat.js"></script>
