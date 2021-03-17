@@ -1,6 +1,6 @@
 <% layout("/layouts/boilerplate")%>
     <h1>Calculate Wilks</h1>
-    <form action="/personal/wilks" method="POST">
+    <form action="/wilks" method="POST">
         <label for="wilks[gender]">Gender</label>
         <select name="wilks[gender]" id="wilks[gender]">
             <option value="male">male</option>
@@ -12,13 +12,8 @@
         <input type="number" step="any" name="wilks[total]" id="wilks[total]">
         <button id="calculate">submit</button>
     </form>
-    <% if (user) {%>
-        <h2>
-            <%= user[0].wilks%>
-        </h2>
-        <% } else {%>
-            <% } %>
-                <h2>What is wilks?</h2>
-                <p>The Wilks coefficient or Wilks formula is a coefficient that can be used to measure the strength of a
-                    powerlifter
-                    against other powerlifters despite the different weights of the lifters. - Wikipedia</p>
+
+    <h2>What is wilks?</h2>
+    <p>The Wilks coefficient or Wilks formula is a coefficient that can be used to measure the strength of a
+        powerlifter
+        against other powerlifters despite the different weights of the lifters. - Wikipedia</p>

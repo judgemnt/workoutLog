@@ -22,18 +22,21 @@ module.exports.loginForm = (req, res) => {
 
 //Login
 module.exports.login = (req, res) => {
-    res.redirect("/login");
+    req.flash("success", "welcome");
+    const redirectUrl = req.session.returnTo || "/programs";
+    delete req.session.returnTo;
+    res.redirect(redirectUrl);
 }
 
+//Logout
 module.exports.logout = (req, res) => {
     req.logout();
     res.redirect("/programs");
 };
 
 //Show Wilks calculator
-module.exports.wilks = async (req, res) => {
-    const user = await Personal.find({ user: "little Jimmy" });
-    res.render("personal/wilks", { user });
+module.exports.wilks = (req, res) => {
+    res.render("personal/wilks");
 };
 
 //Calculate Wilks
@@ -60,14 +63,13 @@ module.exports.calculateWilks = async (req, res) => {
             return Math.round(total * coefficient);
         };
     };
-    const user = await Personal.findOneAndUpdate({ user: "little Jimmy" }, { wilks: wilks() });
-    res.redirect("/personal/wilks");
+    req.flash("calc", wilks());
+    res.redirect("/wilks");
 };
 
 //Show bodyfat estimate calculator
-module.exports.bodyFat = async (req, res) => {
-    const user = await Personal.find({ user: "little Jimmy" });
-    res.render("personal/bodyFat", { user });
+module.exports.bodyFat = (req, res) => {
+    res.render("personal/bodyFat");
 };
 
 //Calculate body fat percentage
@@ -87,14 +89,10 @@ module.exports.calculateBF = async (req, res) => {
             return bf
         };
     };
-    const bodyFat = bodyFatP()
+    const bodyFat = bodyFatP();
     const fm = weight * bodyFat / 100;
     const lm = weight - fm;
-    const user = await Personal.findOneAndUpdate({ user: "little Jimmy" }, {
-        BodyWeight: weight,
-        BodyFatPercentage: bodyFat,
-        FatMass: fm,
-        LeanMass: lm
-    })
-    res.redirect("/personal/bfCalc")
+    const result = [bodyFat, fm, lm];
+    req.flash("bodyFat", result);
+    res.redirect("/bfCalc");
 };

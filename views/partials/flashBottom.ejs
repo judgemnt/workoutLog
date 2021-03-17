@@ -1,0 +1,26 @@
+<% if(calc && calc.length) { %>
+    <%= calc %>
+        <% } %>
+
+            <% if (bodyFat && bodyFat.length) {%>
+                <table>
+                    <tr>
+                        <td>BF%</td>
+                        <td>
+                            <%=bodyFat[0]%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>FM</td>
+                        <td>
+                            <%=bodyFat[1]%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>FFM</td>
+                        <td>
+                            <%=bodyFat[2]%>
+                        </td>
+                    </tr>
+                </table>
+                <% } %>

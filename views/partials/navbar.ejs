@@ -10,61 +10,41 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/programs">All Programs</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/programs/new">New Program</a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/wilks">Wilks Calculator</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/bfCalc">Body Fat Calculator</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        User
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#"> My Progress</a></li>
-                        <li>
-                        <li><a class="dropdown-item" href="#"> My Programs</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">New Program</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        References
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#"> Stronger by Science</a></li>
-                        <li>
-                        <li><a class="dropdown-item" href="#"> Placeholder </a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Home Gym Resources
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Blank's Reviews</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#"> Garage Gym reviews</a></li>
-                        <li>
-                        <li><a class="dropdown-item" href="#"> Basement Brandon </a></li>
-                    </ul>
-                </li>
+                <% if (currentUser) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/programs/new">New Program</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#"> My Progress</a></li>
+                            <li>
+                            <li><a class="dropdown-item" href="#"> My Programs</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">New Program</a></li>
+                        </ul>
+                    </li>
+                    <% } %>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li><a class="nav-link" aria-current="page" href="/login">Login</a></li>
-                <li><a class="nav-link" aria-current="page" href="/register">Register</a></li>
-                <li><a class="nav-link" aria-current="page" href="/logout">Logout</a></li>
+                <% if(!currentUser) {%>
+                    <li><a class="nav-link" aria-current="page" href="/login">Login</a></li>
+                    <li><a class="nav-link" aria-current="page" href="/register">Register</a></li>
+                    <% } else{ %>
+                        <li><a class="nav-link" aria-current="page" href="/logout">Logout</a></li>
+                        <% } %>
             </ul>
         </div>
     </div>

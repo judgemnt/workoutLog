@@ -4,7 +4,7 @@
     <p>Based on the US Navy formula. Results are believed to be accurate, however this should not be a substitute for
         advice from a medical professional</p>
 
-    <form action="/personal/bfCalc" method="POST">
+    <form action="/bfCalc" method="POST">
         <label for="bfCalc[gender]">Gender</label>
         <select name="bfCalc[gender]" id="bfCalc[gender]">
             <option value="male">male</option>
@@ -31,31 +31,5 @@
             <button>Calculate</button>
         </div>
     </form>
-    <% if (user[0].BodyFatPercentage){ %>
-        <div>
-            <table>
-                <tr>
-                    <td>Body Fat %</td>
-                    <td>
-                        <%=user[0].BodyFatPercentage%>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Fat Mass</td>
-                    <td>
-                        <%=user[0].FatMass%>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Fat Free Mass</td>
-                    <td>
-                        <%=user[0].LeanMass%>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <% } else { %>
 
-            <% } %>
-
-                <script src="/javascript/bodyfat.js"></script>
+    <script src="/javascript/bodyfat.js"></script>
