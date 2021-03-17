@@ -1,10 +1,38 @@
 const Personal = require("../models/personalSchema");
 //user currently set to "'little Jimmy' will need to change everything to look for the current user once the user schema is established"
 
+//Show User Registration Form
+module.exports.registerForm = (req, res) => {
+    res.render("personal/register");
+};
+
+//Create new User
+module.exports.register = async (req, res) => {
+    const { email, username, password } = req.body.user;
+    const user = new Personal({ email, username });
+    const registeredUser = await Personal.register(user, password);
+    console.log(registeredUser);
+    res.redirect("/register")
+};
+
+//Show login Form
+module.exports.loginForm = (req, res) => {
+    res.render("personal/login");
+};
+
+//Login
+module.exports.login = (req, res) => {
+    res.redirect("/login");
+}
+
+module.exports.logout = (req, res) => {
+    req.logout();
+    res.redirect("/programs");
+};
 
 //Show Wilks calculator
 module.exports.wilks = async (req, res) => {
-    const user = await Personal.find({ user: "little Jimmy" })
+    const user = await Personal.find({ user: "little Jimmy" });
     res.render("personal/wilks", { user });
 };
 

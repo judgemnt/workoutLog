@@ -31,7 +31,6 @@ module.exports.new = async (req, res) => {
     const { workoutId } = req.params;
     const workout = await Workout.findById(workoutId);
     const id = workout.program;
-    console.log(workout.exercises.length)
     const newExercise = new Exercise({
         exercise: req.body.exercises.exercise,
         sets: req.body.exercises.sets,
