@@ -1,3 +1,4 @@
+const { db, findByIdAndUpdate } = require("../models/personalSchema");
 const Personal = require("../models/personalSchema");
 //user currently set to "'little Jimmy' will need to change everything to look for the current user once the user schema is established"
 
@@ -35,8 +36,13 @@ module.exports.logout = (req, res) => {
 };
 
 //Show Wilks calculator
-module.exports.wilks = (req, res) => {
-    res.render("personal/wilks");
+module.exports.wilks = async (req, res) => {
+    if (req.user) {
+        const personal = await Personal.findById(req.user._id);
+        res.render("personal/wilks", { personal });
+    } else {
+        res.render("personal/wilks");
+    };
 };
 
 //Calculate Wilks
@@ -63,13 +69,22 @@ module.exports.calculateWilks = async (req, res) => {
             return Math.round(total * coefficient);
         };
     };
-    req.flash("calc", wilks());
+    if (!req.isAuthenticated()) {
+        req.flash("calc", wilks());
+    } else {
+        await Personal.findByIdAndUpdate(req.user._id, { wilks: wilks() });
+    };
     res.redirect("/wilks");
 };
 
 //Show bodyfat estimate calculator
-module.exports.bodyFat = (req, res) => {
-    res.render("personal/bodyFat");
+module.exports.bodyFat = async (req, res) => {
+    if (!req.user) {
+        res.render("personal/bodyFat");
+    } else {
+        const personal = await Personal.findById(req.user._id);
+        res.render("personal/bodyFat", { personal });
+    };
 };
 
 //Calculate body fat percentage
@@ -92,7 +107,11 @@ module.exports.calculateBF = async (req, res) => {
     const bodyFat = bodyFatP();
     const fm = weight * bodyFat / 100;
     const lm = weight - fm;
-    const result = [bodyFat, fm, lm];
-    req.flash("bodyFat", result);
+    if (!req.isAuthenticated()) {
+        const result = [bodyFat, fm, lm];
+        req.flash("bodyFat", result);
+    } else {
+        await Personal.findByIdAndUpdate(req.user._id, { BodyFatPercentage: bodyFat, LeanMass: lm, FatMass: fm, BodyWeight: weight });
+    };
     res.redirect("/bfCalc");
 };

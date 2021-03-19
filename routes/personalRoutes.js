@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const personal = require("../controllers/personalController");
-const passport = require("passport")
+const passport = require("passport");
 
 router.route("/wilks")
     .get(personal.wilks)

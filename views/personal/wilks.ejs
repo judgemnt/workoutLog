@@ -12,8 +12,12 @@
         <input type="number" step="any" name="wilks[total]" id="wilks[total]">
         <button id="calculate">submit</button>
     </form>
-
-    <h2>What is wilks?</h2>
-    <p>The Wilks coefficient or Wilks formula is a coefficient that can be used to measure the strength of a
-        powerlifter
-        against other powerlifters despite the different weights of the lifters. - Wikipedia</p>
+    <% if (currentUser){ %>
+        <div>
+            <%= personal.wilks %>
+        </div>
+        <% } %>
+            <h2>What is wilks?</h2>
+            <p>The Wilks coefficient or Wilks formula is a coefficient that can be used to measure the strength of a
+                powerlifter
+                against other powerlifters despite the different weights of the lifters. - Wikipedia</p>

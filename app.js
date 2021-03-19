@@ -61,7 +61,7 @@ app.use("/", personalRoutes)
 
 //Shows landing page
 app.get("/", (req, res) => {
-    res.render("workout/greet");
+    res.render("greet");
 });
 
 app.listen(3000, () => {

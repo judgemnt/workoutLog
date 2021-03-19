@@ -31,5 +31,27 @@
             <button>Calculate</button>
         </div>
     </form>
-
-    <script src="/javascript/bodyfat.js"></script>
+    <% if (currentUser) { %>
+        <div>
+            <table>
+                <tr>
+                    <td>Body Fat %</td>
+                    <td>
+                        <%= personal.BodyFatPercentage%>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fat Mass</td>
+                    <td>
+                        <%= personal.FatMass %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Lean Mass</td>
+                    <td>
+                        <%= personal.LeanMass %>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <% } %>
