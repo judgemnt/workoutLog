@@ -1,15 +1,16 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const workout = require("../controllers/workoutController");
+const { isLoggedIn } = require("../middleware")
 
-router.post("/", workout.new);
+router.post("/", isLoggedIn, workout.new);
 
 router.route("/workouts")
-    .get(workout.workouts)
-    .patch(workout.editWorkout)
-    .delete(workout.delete);
+    .get(isLoggedIn, workout.workouts)
+    .patch(isLoggedIn, workout.editWorkout)
+    .delete(isLoggedIn, workout.delete);
 
 router.route("/workouts/edit")
-    .get(workout.editForm)
+    .get(isLoggedIn, workout.editForm)
 
 module.exports = router;

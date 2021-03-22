@@ -1,0 +1,26 @@
+<% layout("layouts/boilerplate")%>
+    <h1>All Programs</h1>
+    <% if (programs.length>=1){ %>
+        <div>
+            <% for (let p=programs.length -1; p>= 0; p--) {%>
+                <form action="/user/programs?_method=DELETE" method="POST">
+                    <div>
+                        <label for="program[_id]">
+                            <a href="/user/programs/<%=programs[p]._id%>/workouts">
+                                <%= programs[p].title %>
+                            </a>
+                        </label>
+                        <br>
+                        <textarea class="form-control" name="program[description]" id="program[description]" cols="60"
+                            rows="3" readonly><%=programs[p].description%></textarea>
+                    </div>
+                    <button name="program[_id]" id="program[_id]" value="<%=programs[p]._id%>">Delete Program</button>
+                </form>
+                <% } %>
+        </div>
+        <% } else { %>
+            <div>
+                You do not have any programs
+                <a href="/user/programs/new"><button>Create Program</button></a>
+            </div>
+            <% } %>

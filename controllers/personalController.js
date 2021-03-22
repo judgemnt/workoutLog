@@ -1,4 +1,3 @@
-const { db, findByIdAndUpdate } = require("../models/personalSchema");
 const Personal = require("../models/personalSchema");
 //user currently set to "'little Jimmy' will need to change everything to look for the current user once the user schema is established"
 

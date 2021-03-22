@@ -1,0 +1,42 @@
+<% layout("layouts/boilerplate")%>
+    <div>
+        <form action="/user/programs/<%=workouts[0].program%>/workouts?_method=PATCH" method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <td>Workout ID</td>
+                        <td>Order</td>
+                        <td>Workout Name</td>
+                        <td>Description</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let w of sortedWorkouts) {%>
+                        <tr>
+                            <td>
+                                <input class="form-control" type="text" placeholder="<%=w._id%>" name="workout[id]"
+                                    id="workout[id]" readonly value="<%=w._id%>">
+                            </td>
+                            <td>
+                                <label for="workout[sequence]"></label>
+                                <input type="number" name="workout[sequence]" id="workout[sequence]"
+                                    value="<%=w.sequence%>">
+                            </td>
+                            <td>
+                                <label for="workout[session]"></label>
+                                <input type="text" name="workout[session]" id="workout[session]" value="<%=w.session%>">
+                            </td>
+                            <td>
+                                <label for="workout[description]"></label>
+                                <textarea name="workout[description]" id="workout[description]" cols="60"
+                                    rows="1"><%= w.description  %> </textarea>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+            <div>
+                <button>Submit</button>
+            </div>
+        </form>
+    </div>

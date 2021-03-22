@@ -1,0 +1,59 @@
+<% layout("layouts/boilerplate")%>
+    <div><a href="/user/programs">programs</a></div>
+    <div>
+        <h1>
+            <%=program.title%>
+        </h1>
+        <div>
+            <%=program.description%>
+        </div>
+        <div>
+            <a href="/user/programs/<%=program._id%>/edit"><button>Edit Program</button></a>
+            <% if (sortedWorkouts.length> 0){ %>
+                <a href="/user/programs/<%=program._id%>/workouts/edit"><button>Edit Workouts</button></a>
+                <% } %>
+        </div>
+    </div>
+    <div>
+
+    </div>
+    <% if (sortedWorkouts.length>0){ %>
+        <div>
+            <h2>Workouts</h2>
+            <%for (let w=0; w < sortedWorkouts.length; w ++) {%>
+                <div>
+                    <form action="/user/programs/<%=sortedWorkouts[0].program%>/workouts?_method=DELETE" method="POST">
+                        <div>
+                            <label for="workouts[workout]">
+                                <a href="/user/programs/<%=program._id%>/workouts/<%=sortedWorkouts[w]._id%>">
+                                    <%= sortedWorkouts[w].session%>
+                                </a>
+                            </label>
+                            <input type="checkbox" name="workouts[workout]" id="workouts[workout]"
+                                value="<%=sortedWorkouts[w]._id%>">
+                        </div>
+                        <div>
+                            <textarea class="form-control" name="program[description]" id="program[description]"
+                                cols="60" rows="3" readonly><%=sortedWorkouts[w].description%></textarea>
+                        </div>
+                        <% } %>
+                            <button>Delete Selected</button>
+                    </form>
+                </div>
+                <% } %>
+                    <div>
+                        <h2>Add Workouts</h2>
+                        <form action="/user/programs/<%=program._id%>" method="POST">
+                            <div>
+                                <label for="workouts[session]">Session Title</label>
+                                <input type="text" name="workouts[session]" id="workouts[session]">
+                            </div>
+                            <div>
+                                <label for="workouts[description]">Description</label>
+                                <textarea name="workouts[description]" id="workouts[description]" cols="30"
+                                    rows="2"></textarea>
+                            </div>
+                            <button>Submit</button>
+                        </form>
+                    </div>
+        </div>

@@ -23,7 +23,7 @@ module.exports.show = async (req, res) => {
     const { workoutId } = req.params;
     const workout = await Workout.findById(workoutId).populate("exercises");
     const sortedEx = workout.exercises.sort(sorter("sequence"));
-    res.render("workout/details", { workout, sortedEx });
+    res.render("personal/fitness/myExercises", { workout, sortedEx });
 };
 
 //create new exercise for a specific workout
@@ -40,7 +40,7 @@ module.exports.new = async (req, res) => {
     });
     await newExercise.save();
     await workout.updateOne({ $push: { exercises: newExercise } });
-    res.redirect(`/programs/${id}/workouts/${workoutId}`);
+    res.redirect(`/user/programs/${id}/workouts/${workoutId}`);
 };
 
 //Shows form to edit exercises
@@ -48,7 +48,7 @@ module.exports.showEdit = async (req, res) => {
     const { workoutId } = req.params;
     const workout = await Workout.findById(workoutId).populate("exercises");
     const sortedEx = workout.exercises.sort(sorter("sequence"));
-    res.render("workout/editExercise", { workout, sortedEx });
+    res.render("personal/fitness/edit/editExercise", { workout, sortedEx });
 };
 
 //Updates exercise schema with new info
@@ -74,7 +74,7 @@ module.exports.edit = async (req, res) => {
             sequence: req.body.exercises.sequence
         });
     };
-    res.redirect(`/programs/${id}/workouts/${workoutId}`);
+    res.redirect(`/user/programs/${id}/workouts/${workoutId}`);
 };
 
 //delete an exercise from a specific workout
@@ -86,5 +86,5 @@ module.exports.delete = async (req, res) => {
     const id = workout.program;
     await workout.updateOne({ $pull: { exercises: { $in: exerciseIds } } });
     const removeExercise = await Exercise.deleteMany({ _id: { $in: exerciseIds } });
-    res.redirect(`/programs/${id}/workouts/${workoutId}`);
+    res.redirect(`/user/programs/${id}/workouts/${workoutId}`);
 };

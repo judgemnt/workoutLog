@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const engine = require("ejs-mate");
 const methodOverride = require("method-override");
+const publicRoutes = require("./routes/publicRoutes");
 const programRoutes = require("./routes/programRoutes");
 const workoutRoutes = require("./routes/workoutRoutes");
 const exerciseRoutes = require("./routes/exerciseRoutes");
@@ -54,10 +55,12 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use("/programs", programRoutes);
-app.use("/programs/:id", workoutRoutes);
-app.use("/programs/:id/workouts/:workoutId", exerciseRoutes);
-app.use("/", personalRoutes)
+app.use("/", personalRoutes);
+app.use("/programs", publicRoutes);
+app.use("/user/programs", programRoutes);
+app.use("/user/programs/:id/", workoutRoutes);
+app.use("/user/programs/:id/workouts/:workoutId", exerciseRoutes);
+
 
 //Shows landing page
 app.get("/", (req, res) => {

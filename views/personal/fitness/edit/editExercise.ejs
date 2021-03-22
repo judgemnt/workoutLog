@@ -1,0 +1,53 @@
+<% layout("layouts/boilerplate")%>
+    <div>
+        <a href="/user/programs">programs</a>/<a href="/user/programs/<%=workout.program%>/workouts"> workouts
+        </a>/<a href="/user/programs/<%=workout.program%>/workouts/<%=workout.id%>">
+            <%=workout.session%>
+        </a>
+    </div>
+    <div>
+        <form action="/user/programs/<%=workout.program%>/workouts/<%=workout._id%>?_method=PATCH" method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <td>Identifier</td>
+                        <td>Order</td>
+                        <td>Exercises</td>
+                        <td>Sets</td>
+                        <td>Reps</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let e=0; e<sortedEx.length; e++) { %>
+                        <tr>
+                            <td>
+                                <input class="form-control" type="text" name="exercises[id]" id="exercises[id]" readonly
+                                    value="<%=sortedEx[e]._id%>">
+                            </td>
+                            <td>
+                                <label for="exercises[sequence]"></label>
+                                <input type="number" id="exercises[sequence]" name="exercises[sequence]" min="1"
+                                    value="<%=e+1%>">
+                            </td>
+                            <td>
+                                <label for="exercises[exercise]"></label>
+                                <input type="text" name="exercises[exercise]" id="exercises[exercise]"
+                                    value="<%=sortedEx[e].exercise%>">
+                            </td>
+                            <td>
+                                <label for="exercises[sets]"></label>
+                                <input type="text" name="exercises[sets]" id="exercises[sets]"
+                                    value="<%=sortedEx[e].sets%>">
+                            </td>
+                            <td>
+                                <label for="exercises[reps]"></label>
+                                <input type="text" name="exercises[reps]" id="exercises[reps]"
+                                    value="<%=sortedEx[e].reps%>">
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+                <button id="results">Save and Exit</button>
+        </form>
+        <button><a href="/user/programs/<%=workout.program%>/workouts/<%=workout.id%>">Cancel</a></button>
+    </div>

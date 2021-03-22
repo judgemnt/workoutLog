@@ -1,7 +1,7 @@
 <% layout("layouts/boilerplate")%>
 
-    <div><a href="/programs">programs</a> /<a href="/programs/<%=workout.program%>/workouts">
-            workouts
+    <div><a href="/programs">All Programs</a> /<a href="/programs/<%=program._id%>/workouts">
+            All Workouts
         </a></div>
     <h1>
         <%= workout.session %>
@@ -16,37 +16,19 @@
                 </tr>
             </thead>
             <tbody>
-                <form action="/programs/<%=workout.program%>/workouts/<%=workout._id%>?_method=DELETE" method="POST">
-                    <% for (let e of sortedEx) { %>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="exercises[exercise]" id="exercises[<%=e._id%>]"
-                                    value="<%=e._id%>">
-                                <label for="exercises[<%=e._id%>]">
-                                    <%= e.exercise %>
-                                </label>
-                            </td>
-                            <td>
-                                <%= e.sets %>
-                            </td>
-                            <td>
-                                <%= e.reps %>
-                            </td>
-                        </tr>
-                        <% } %>
+                <% for (let e of workout) { %>
+                    <tr>
+                        <td>
+                            <%= e.exercise %>
+                        </td>
+                        <td>
+                            <%= e.sets %>
+                        </td>
+                        <td>
+                            <%= e.reps %>
+                        </td>
+                    </tr>
+                    <% } %>
             </tbody>
         </table>
-        <button>Remove selected</button>
-        </form>
-        <a href="/programs/<%=workout.program%>/workouts/<%=workout._id%>/edit"><button>Edit Exercises</button></a>
-        <h2>Add Exercises</h2>
-        <form action="/programs/<%=workout.program%>/workouts/<%=workout._id%>" method="POST">
-            <label for="exercises[exercise]">Exercise</label>
-            <input type="text" name="exercises[exercise]" id="exercises[exercise]">
-            <label for="exercises[sets]">Sets</label>
-            <input type="number" name="exercises[sets]" id="exercises[sets]">
-            <label for="exercises[reps]">Reps</label>
-            <input type="number" name="exercises[reps]" id="exercises[reps]">
-            <button>Submit</button>
-        </form>
     </div>
