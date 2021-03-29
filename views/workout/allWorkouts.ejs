@@ -1,6 +1,9 @@
 <% layout("layouts/boilerplate")%>
     <div><a href="/programs">All Programs</a></div>
     <div>
+        <a href="/programs/<%=program._id%>/copy">
+            <button>Copy Program</button>
+        </a>
         <h1>
             <%=program.title%>
         </h1>

@@ -1,0 +1,61 @@
+<% layout("layouts/boilerplate")%>
+
+    <h1>Review and Edit</h1>
+    <form action="/programs" method="POST">
+        <section>
+            <label for="program[title]">Title</label>
+            <input type="text" name="program[title]" id="program[title]" value="<%= program.title %> ">
+            <br>
+            <label for="program[description]">Description</label>
+            <textarea name="program[description]" id="program[description]" cols="50"
+                rows="5"> <%= program.description %> </textarea>
+        </section>
+        <section>
+            <% for (let w=0; w < workout.length; w++){ %>
+                <label for="workouts[session]">Workout</label>
+                <input type="text" name="workouts[session]" id="workouts[session]" value="<%=workout[w].session%>">
+                <br>
+                <label for="workouts[description]">Description</label>
+                <textarea name="workouts[description]" id="workouts[description]" cols="50"
+                    rows="5"> <%=workout[w].description%></textarea>
+                <br>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Exercise</td>
+                            <td>Sets</td>
+                            <td>Reps</td>
+                            <td>Order</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let e=0; e < exercise[w].exercises.length; e++){%>
+                            <tr>
+                                <td>
+                                    <label for="workout<%=w%>[exercise]"></label>
+                                    <input type="text" name="workout<%=w%>[exercise]" id="workout<%=w%>[exercise]"
+                                        value="<%= exercise[w].exercises[e].exercise %>">
+                                </td>
+                                <td>
+                                    <label for="workout<%=w%>[sets]"></label>
+                                    <input type="number" name="workout<%=w%>[sets]" id="workout<%=w%>[sets]"
+                                        value="<%= exercise[w].exercises[e].sets %>">
+                                </td>
+                                <td>
+                                    <label for="workout<%=w%>[reps]"></label>
+                                    <input type="number" name="workout<%=w%>[reps]" id="workout<%=w%>[reps]"
+                                        value="<%= exercise[w].exercises[e].reps %>">
+                                </td>
+                                <td>
+                                    <label for="workout<%=w%>[sequence]"></label>
+                                    <input type="number" name="workout<%=w%>[sequence]" id="workout<%=w%>[sequence]"
+                                        value="<%= exercise[w].exercises[e].sequence %>">
+                                </td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+                <% } %>
+        </section>
+        <button>Submit</button>
+    </form>

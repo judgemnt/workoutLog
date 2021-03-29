@@ -17,7 +17,6 @@ module.exports.newProgram = async (req, res) => {
     const program = await new Program({
         title: req.body.program.title,
         description: req.body.program.description,
-        public: req.body.program.public,
         author: req.user._id
     });
     await program.save();
@@ -37,8 +36,7 @@ module.exports.edit = async (req, res) => {
     const { id } = req.params;
     const program = await Program.findByIdAndUpdate(id, {
         title: req.body.program.title,
-        description: req.body.program.description,
-        public: req.body.program.public
+        description: req.body.program.description
     });
     res.redirect(`/user/programs/${id}/workouts`);
 };

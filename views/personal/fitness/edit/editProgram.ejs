@@ -10,13 +10,6 @@
                 <textarea name="program[description]" id="program[description]" cols="70"
                     rows="3"><%=program.description%></textarea>
             </div>
-            <div>
-                <label for="program[public]">Make this program Public?</label>
-                <select name="program[public]" id="program[public]">
-                    <option value="true" <%=program.public===true ? "selected" : "" %> >Yes</option>
-                    <option value="false" <%=program.public===false ? "selected" : "" %>>No</option>
-                </select>
-            </div>
             <button>Submit Changes</button>
         </form>
         <a href="/user/programs/<%=program._id%>/workouts"><button>Cancel</button></a>
