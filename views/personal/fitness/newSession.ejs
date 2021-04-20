@@ -1,0 +1,65 @@
+<% layout("layouts/boilerplate") %>
+    <div>
+        <a href="/user/programs">programs</a> /<a href="/user/programs/<%=workout.program%>/workouts">workouts</a>/ <a
+            href="/user/programs/<%=workout.program%>/workouts/<%=workoutId%>">workout</a>
+    </div>
+    <div>
+        <h1>New Session</h1>
+    </div>
+    <% if(sessionList.length) {%>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Existing Sessions
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <% for (let session of sessionList) { %>
+                    <li>
+                        <a class="dropdown-item" href="/user/workout/<%=workout._id%>/session/<%=session._id%>">
+                            <%= session.sessionName %>
+                        </a>
+                    </li>
+                    <% } %>
+            </ul>
+        </div>
+        <% } %>
+            <div>
+                <form action="/user/workout/<%=workoutId%>/session/" method="POST">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Exercises</td>
+                                <td>Sets</td>
+                                <td>Reps</td>
+                                <td>
+                                    <label for="session[sessionName]"></label>
+                                    <input type="text" name="session[sessionName]" id="session[sessionName]"
+                                        placeholder="Session Name">
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (let e=0; e< sortedEx.length; e++) { %>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="session[exercise]" value="<%=sortedEx[e]._id%>">
+                                        <%= sortedEx[e].exercise%>
+                                    </td>
+                                    <td>
+                                        <%= sortedEx[e].sets %>
+                                    </td>
+                                    <td>
+                                        <%= sortedEx[e].reps %>
+                                    </td>
+                                    <td>
+                                        <label for="session[weight]"></label>
+                                        <input type="number" name="session[weight]" id="session[weight]">
+                                    </td>
+                                </tr>
+                                <% } %>
+                        </tbody>
+                    </table>
+                    <button>Save</button>
+                    <a href="/user/programs/<%=workout.program%>/workouts/<%=workoutId%>">Cancel</a>
+                </form>
+            </div>

@@ -9,6 +9,7 @@ const programRoutes = require("./routes/programRoutes");
 const workoutRoutes = require("./routes/workoutRoutes");
 const exerciseRoutes = require("./routes/exerciseRoutes");
 const personalRoutes = require("./routes/personalRoutes");
+const sessionRoutes = require("./routes/sessionRoutes");
 const session = require("express-session");
 const passport = require("passport");
 const PassportLocal = require("passport-local");
@@ -60,6 +61,7 @@ app.use("/programs", publicRoutes);
 app.use("/user/programs", programRoutes);
 app.use("/user/programs/:id/", workoutRoutes);
 app.use("/user/programs/:id/workouts/:workoutId", exerciseRoutes);
+app.use("/user/workout/:workoutId/session", sessionRoutes);
 
 
 //Shows landing page

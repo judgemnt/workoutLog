@@ -15,6 +15,7 @@
                         <td>Exercises</td>
                         <td>Sets</td>
                         <td>Reps</td>
+                        <td>Delete</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,6 +44,9 @@
                                 <label for="exercises[reps]"></label>
                                 <input type="text" name="exercises[reps]" id="exercises[reps]"
                                     value="<%=sortedEx[e].reps%>">
+                            </td>
+                            <td>
+                                <input type="checkbox" name="deleteId" id="deleteId" value="<%=sortedEx[e]._id%>">
                             </td>
                         </tr>
                         <% } %>

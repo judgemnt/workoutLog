@@ -6,7 +6,6 @@ const { isLoggedIn } = require("../middleware");
 router.route("/")
     .get(isLoggedIn, exercise.show)
     .post(isLoggedIn, exercise.new)
-    .delete(isLoggedIn, exercise.delete)
     .patch(isLoggedIn, exercise.edit);
 
 router.route("/edit")

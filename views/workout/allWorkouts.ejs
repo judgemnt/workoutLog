@@ -1,15 +1,17 @@
 <% layout("layouts/boilerplate")%>
     <div><a href="/programs">All Programs</a></div>
     <div>
-        <a href="/programs/<%=program._id%>/copy">
-            <button>Copy Program</button>
-        </a>
-        <h1>
-            <%=program.title%>
-        </h1>
-        <div>
-            <%=program.description%>
-        </div>
+        <% if (currentUser){%>
+            <a href="/programs/<%=program._id%>/copy">
+                <button>Copy Program</button>
+                <% } %>
+            </a>
+            <h1>
+                <%=program.title%>
+            </h1>
+            <div>
+                <%=program.description%>
+            </div>
     </div>
     <h2>Workouts</h2>
     <%for (let w=0; w < workouts.length; w ++) {%>

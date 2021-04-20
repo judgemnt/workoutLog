@@ -1,0 +1,102 @@
+<% layout("layouts/boilerplate") %>
+    <div>
+        <a href="/user/programs">programs</a> /<a href="/user/programs/<%=workout.program%>/workouts">workouts</a>/ <a
+            href="/user/programs/<%=workout.program%>/workouts/<%=workoutId%>">workout</a>
+    </div>
+    <div>
+        <h1>
+            <%= session.sessionName %>
+        </h1>
+    </div>
+    <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Additional Sessions
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li selected>
+                <a class="dropdown-item" href="/user/workout/<%=workoutId%>/session/">
+                    New Session
+                </a>
+            </li>
+            <% for (let sess of sessionList) { %>
+                <li>
+                    <a class="dropdown-item" href="/user/workout/<%=workout._id%>/session/<%=sess._id%>">
+                        <%= sess.sessionName %>
+                    </a>
+                </li>
+                <% } %>
+        </ul>
+    </div>
+    <div>
+        <form action="/user/workout/<%=workoutId%>/session/<%=session._id%>?_method=PATCH" method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <td>Exercises</td>
+                        <td>Sets</td>
+                        <td>Reps</td>
+                        <td>
+                            <label for="session[sessionName]"></label>
+                            <input type="text" name="session[sessionName]" id="session[sessionName]"
+                                placeholder="Session Name" value="<%=session.sessionName%>">
+                        </td>
+                        <td>Set Count</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let e=0; e< session.exercises.length; e++) { %>
+                        <tr>
+                            <td>
+                                <input type="hidden" name="session[exercise]"
+                                    value="<%=session.exercises[e].exerciseId._id%>">
+                                <%= session.exercises[e].exerciseId.exercise%>
+                            </td>
+                            <td>
+                                <%= session.exercises[e].exerciseId.sets %>
+                            </td>
+                            <td>
+                                <%= session.exercises[e].exerciseId.reps %>
+                            </td>
+                            <td>
+                                <label for="session[weight]"></label>
+                                <input type="number" name="session[weight]" id="session[weight]"
+                                    value="<%=session.exercises[e].weight%>">
+                            </td>
+                            <td>
+                                <select name="session[count]" id="session[count]">
+                                    <% for (let i=0; i <=session.exercises[e].exerciseId.sets; i++){ %>
+                                        <option value="<%=`${i}`%>" <%=session.exercises[e].setCount===i ? "selected"
+                                            : "" %> >
+                                            <%=i%>
+                                        </option>
+                                        <% } %>
+                                </select>
+                            </td>
+
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+            <button>Save</button>
+        </form>
+    </div>
+    <div>
+        <form action="/user/workout/<%=workoutId%>/session/<%=session._id%>?_method=DELETE" method="POST"">
+        <Button>Delete Session</Button>
+        </form>
+    </div>
+<div>
+    <h1>Add Exercise to Session</h1>
+    </div>
+    <div>
+        <form action=" /user/workout/<%=workoutId%>/session/<%=session._id%>" method="POST">
+                <label for="exercises[exercise]">Exercise</label>
+                <input type="text" name="exercises[exercise]" id="exercises[exercise]">
+                <label for="exercises[sets]">Sets</label>
+                <input type="number" name="exercises[sets]" id="exercises[sets]">
+                <label for="exercises[reps]">Reps</label>
+                <input type="number" name="exercises[reps]" id="exercises[reps]">
+                <button>Submit</button>
+        </form>
+    </div>
