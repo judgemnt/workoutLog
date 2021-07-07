@@ -2,18 +2,22 @@ const express = require("express");
 const router = express.Router();
 const personal = require("../controllers/personalController");
 const passport = require("passport");
+const catchAsync = require("../utilities/catchAsync");
+const { validatePersonal } = require("../middleware")
 
 router.route("/wilks")
-    .get(personal.wilks)
-    .post(personal.calculateWilks)
+    .get(catchAsync(personal.wilks))
+    .post(validatePersonal, catchAsync(personal.calculateWilks))
 
 router.route("/bfCalc")
-    .get(personal.bodyFat)
-    .post(personal.calculateBF)
+    .get(catchAsync(personal.bodyFat))
+    .post(validatePersonal, catchAsync(personal.calculateBF))
+
+//router.route("/plateMath")
 
 router.route("/register")
     .get(personal.registerForm)
-    .post(personal.register)
+    .post(validatePersonal, catchAsync(personal.register))
 
 router.route("/login")
     .get(personal.loginForm)
